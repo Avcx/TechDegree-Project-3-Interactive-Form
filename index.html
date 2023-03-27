@@ -156,10 +156,11 @@
             <option value="paypal">PayPal</option>
             <option value="bitcoin">Bitcoin</option>
           </select>
+          <span id="exp-hint" class="exp-hint hint">Payment method must be selected</span>
         </div>
 
         <div id="credit-card" class="credit-card">
-          <div class="expiration-box">
+          <div id="exp" class="expiration-box">
             <div class="month-box">
               <label for="exp-month">Expiration Date:</label>
               <select id="exp-month" name="user-exp-month" class="error-border">
@@ -190,12 +191,13 @@
                 <option value="2025">2025</option>    		          
               </select> 
             </div>
+            <span id="exp-hint" class="exp-hint hint">Credit cannot be expired.</span>
           </div> 
 
           <div class="credit-card-box">
             <div class="num-box">
-              <label for="cc-num">Card Number: <span class="asterisk">*</span>
-                <input id="cc-num" name="user-cc-num" type="text" class="error-border">
+              <label for="cc">Card Number: <span class="asterisk">*</span>
+                <input id="cc" name="user-cc-num" type="text" class="error-border">
                 <span id="cc-hint" class="cc-hint hint">Credit card number must be between 13 - 16 digits</span>
               </label>
             </div>

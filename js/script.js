@@ -1,12 +1,24 @@
 
+/*
+
+    Variable Declarations:
+
+*/
+
 const nameField = document.querySelector('#name');
-const emailField = document.querySelector('email');
+const emailField = document.querySelector('#email');
 const jobRoleField = document.querySelector('#title');
 const otherRoleField = document.querySelector('#other-job-role');
-const paymentTypeField = document.querySelector('#payment');
 
-const basicAndShirtInfoDiv = document.querySelector('.basic-info-and-shirt-box');
+const paymentTypeField = document.querySelector('#payment');
+const paymentExpirationMonth = document.querySelector('#exp-month');
+const paymentExpirationYear = document.querySelector('#exp-year');
+const paymentCardNumber = document.querySelector('#cc');
+const paymentZipCodeField = document.querySelector('#zip');
+const paymentCVVField = document.querySelector('#cvv')
+
 const form = document.querySelector('form');
+const basicAndShirtInfoDiv = document.querySelector('.basic-info-and-shirt-box');
 const activityFieldSet = document.querySelector('#activities');
 const shirtDesignDiv = document.querySelector('#shirt-designs');
 const shirtColorsDiv = document.querySelector('#shirt-colors');
@@ -35,9 +47,76 @@ document.addEventListener('DOMContentLoaded', (_e) => {
 
 });
 
+const validator = {
+
+    nameIsValid: (name = nameField.value) => /^[A-Z]+.?/i.test(name),
+
+    emailIsValid: (email = emailField.value) => /^[^@]{2,}@[^@]{2,}\.[a-z]{2,}$/i.test(email),
+
+    zipIsValid: (zipCode = paymentZipCodeField.value) => /^[0-9]{5}$/.test(zipCode),
+
+    ccIsValid: (cardNumber = paymentCardNumber.value) => /^[0-9]{13,16}$/.test(cardNumber),
+
+    expIsValid: (expirationMonth = paymentExpirationMonth.value, expirationYear = paymentExpirationYear.value) => {
+
+        const currentDate = new Date(Date.now());
+        const currentMonth = currentDate.getMonth();
+        const currentYear = currentDate.getFullYear();
+
+        if (expirationYear > currentYear) {
+            return true;
+        } else if (expirationYear === currentYear && expirationMonth > currentMonth) {
+            return true;
+        } else {
+            return false;
+        }
+
+    },
+
+    cvvIsValid: (securityCode = paymentCVVField.value) => /^[0-9]{3}$/.test(securityCode),
+
+    activityIsValid: (activities = activityFieldSet.querySelectorAll(':checked')) => activities === null
+
+};
+
 function validate(field) {
 
-    if (!validator[`${field.id}IsValid`](field.value)) {
+
+    if (field === 'exp') {
+        const expFields = document.querySelectorAll('#exp select');
+
+            if (!validator[`expIsValid`]()) {
+                document.getElementById(`exp-hint`).style.display = 'inherit';
+                for (const expField of expFields) {
+                    expField.classList.add('not-valid');
+                    expField.classList.remove('valid');
+                }
+                return false;
+            } else {
+                document.getElementById(`exp-hint`).style.display = 'none';
+
+                for (const expField of expFields) {
+                    expField.classList.add('valid');
+                    expField.classList.remove('not-valid');
+                }
+                return true;
+            };
+
+    } else if (field === 'activities') {
+
+        if (!validator[`activityIsValid`]()) {
+            document.getElementById(`activities-hint`).style.display = 'inherit';
+            return false;
+        } else {
+            document.getElementById(`activities-hint`).style.display = 'none';
+            return true;
+        };
+        
+    }
+
+
+
+    if (!validator[`${field.id}IsValid`]()) {
         document.getElementById(`${field.id}-hint`).style.display = 'inherit';
         field.classList.add('not-valid');
         field.classList.remove('valid');
@@ -45,24 +124,26 @@ function validate(field) {
         document.getElementById(`${field.id}-hint`).style.display = 'none';
         field.classList.add('valid');
         field.classList.remove('not-valid');
-    }
+    };
 
-}
-
-const validator = {
-
-    nameIsValid: name => /^[A-Z]+.?/i.test(name),
-
-    emailIsValid: email => /^[^@]{2,}@[^@]{2,}\.[a-z]{2,}$/i.test(email),
-
-}
+};
 
 
 const formControls = {
 
-    name: userSelection => validate(userSelection),
+    name: () => validate(nameField),
 
-    email: userSelection => validate(userSelection),
+    email: () => validate(emailField),
+
+    zip: () => validate(paymentZipCodeField),
+
+    cc: () => validate(paymentCardNumber),
+
+    cvv: ()=> validate(paymentCVVField),
+
+    exp: () => validate('exp'),
+
+    activities: () => validate('activities'),
 
     title: (userSelection) => {
 
@@ -81,15 +162,16 @@ const formControls = {
 
     design: (userSelection) => {
 
-        let colorOptions = document.querySelectorAll('#color option');
+        shirtColorsDiv.hidden = false;
+
+        let colorOptions = document.querySelectorAll('#color option[disabled]');
+
 
         for (color of colorOptions) {
+            if (color.getAttribute('data-theme') === userSelection.value)
             color.disabled = true;
             color.removeAttribute('selected');
         }
-
-        shirtColorsDiv.hidden = false;
-    
 
         colorOptions = document.querySelectorAll(`#color > [data-theme="${userSelection.value}"]`);
         colorOptions[0].setAttribute('selected', true)
@@ -103,7 +185,7 @@ const formControls = {
 
 
 
-}
+};
 
 /*
     This listener runs when the `select job role` field is changed.
@@ -117,7 +199,10 @@ const formControls = {
 form.addEventListener('input', (e) => {
 
     const userSelection = e.target;
-    const formFunction = e.target.id;
+    let formFunction = e.target.id;
+    if (e.target.id === "exp-year" || e.target.id === "exp-month") {
+        formFunction = 'exp';
+    }
 
     if (formFunction in formControls) {
 
@@ -174,12 +259,39 @@ paymentTypeField.addEventListener('input', (e) => {
 
 form.addEventListener('submit', (e) => {
 
-    if (validator.nameIsValid(nameField.value) && validator.emailIsValid(emailField.value)) {
-        if (creditCardDiv.hidden) {
-            return
-        } else if (validator) {
-            
-        }
-    }
+    function checkFields() {
+        e.preventDefault();
 
-})
+        formControls.name()
+        formControls.email()
+        formControls.activities();
+
+        if (!creditCardDiv.hidden) {
+            formControls.cc();
+            formControls.cvv();
+            formControls.zip();
+            formControls.exp();
+        }
+
+        window.location.href = "#";
+    
+    };
+
+    if (creditCardDiv.hidden) {
+
+        if (validator.nameIsValid() && validator.emailIsValid()) {
+            return;
+        } else {
+            checkFields();
+        };
+
+    } else {
+
+        for (functions in validator) {
+           if (!validator[functions]()) {
+                console.log('Error Validating Form.');
+                checkFields()
+           }
+        };
+    };
+});
