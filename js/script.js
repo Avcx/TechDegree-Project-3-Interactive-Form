@@ -57,10 +57,10 @@ const validator = {
 
     ccIsValid: (cardNumber = paymentCardNumber.value) => /^[0-9]{13,16}$/.test(cardNumber),
 
-    expIsValid: (expirationMonth = paymentExpirationMonth.value, expirationYear = paymentExpirationYear.value) => {
+    expIsValid: (expirationMonth = +paymentExpirationMonth.value, expirationYear = +paymentExpirationYear.value) => {
 
         const currentDate = new Date(Date.now());
-        const currentMonth = currentDate.getMonth();
+        const currentMonth = currentDate.getMonth() + 1; //getMonth is zero based. 1 is added to allow for comparison.
         const currentYear = currentDate.getFullYear();
 
         if (expirationYear > currentYear) {
@@ -294,15 +294,21 @@ form.addEventListener('submit', (e) => {
     function checkFields() {
         e.preventDefault();
 
-        formControls.name()
-        formControls.email()
-        formControls.activities();
+        const fields = ['name', 'email', 'activities', 'cc', 'exp', 'cvv', 'zip'];
+
+        for (let i = 0; i <= 2; i++) {
+
+            formControls[fields[i]]();
+
+        }
 
         if (!creditCardDiv.hidden) {
-            formControls.cc();
-            formControls.cvv();
-            formControls.zip();
-            formControls.exp();
+
+            for (let i = 3; i < fields.length; i++) {
+
+                formControls[fields[i]]();
+
+            }
         }
 
         window.location.href = "#";
