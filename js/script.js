@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', (_e) => {
     otherRoleField.hidden = true;
     shirtColorsDiv.hidden = true;
 
-    creditCardDiv.hidden = true;
+    creditCardDiv.hidden = false;
     paypalDiv.hidden = true;
     bitcoinDiv.hidden = true;
 
@@ -75,55 +75,84 @@ const validator = {
 
     cvvIsValid: (securityCode = paymentCVVField.value) => /^[0-9]{3}$/.test(securityCode),
 
-    activityIsValid: (activities = activityFieldSet.querySelectorAll(':checked')) => activities === null
-
+    activityIsValid: (activities = activityFieldSet.querySelectorAll(':checked')) => activities.length > 0
 };
+
 
 function validate(field) {
 
 
+    function displayValidity(isValid, hintName, fieldName = null) {
+
+        if (isValid) {
+            if (fieldName) {
+                fieldName.classList.add('valid');
+                fieldName.classList.remove('not-valid');
+            }
+            hintName.style.display = 'none';
+        } else {
+
+            if (fieldName) {
+                fieldName.classList.add('not-valid');
+                fieldName.classList.remove('valid');
+            }
+            hintName.style.display = 'inherit';
+        }
+
+    }
+
+
     if (field === 'exp') {
+
         const expFields = document.querySelectorAll('#exp select');
+        const expHint = document.getElementById(`exp-hint`);
 
-            if (!validator[`expIsValid`]()) {
-                document.getElementById(`exp-hint`).style.display = 'inherit';
-                for (const expField of expFields) {
-                    expField.classList.add('not-valid');
-                    expField.classList.remove('valid');
-                }
-                return false;
-            } else {
-                document.getElementById(`exp-hint`).style.display = 'none';
+            if (validator[`expIsValid`]()) {
 
                 for (const expField of expFields) {
-                    expField.classList.add('valid');
-                    expField.classList.remove('not-valid');
+                
+                    displayValidity(true, expHint, expField);
+
                 }
                 return true;
+            } else {
+
+                for (const expField of expFields) {
+
+                    displayValidity(false, expHint, expField);
+                    
+                }
+                return false;
             };
 
     } else if (field === 'activities') {
 
-        if (!validator[`activityIsValid`]()) {
-            document.getElementById(`activities-hint`).style.display = 'inherit';
-            return false;
-        } else {
-            document.getElementById(`activities-hint`).style.display = 'none';
+        const activitiesHint = document.getElementById(`activities-hint`);
+
+        if (validator[`activityIsValid`]()) {
+
+            displayValidity(true, activitiesHint);
+
             return true;
+        } else {
+
+            displayValidity(false, activitiesHint);
+
+            return false;
         };
         
     }
 
+    const hint = document.getElementById(`${field.id}-hint`);
 
+    if (validator[`${field.id}IsValid`]()) {
 
-    if (!validator[`${field.id}IsValid`]()) {
-        document.getElementById(`${field.id}-hint`).style.display = 'inherit';
-        field.classList.add('not-valid');
-        field.classList.remove('valid');
+        displayValidity(true, hint, field);
+
     } else {
-        document.getElementById(`${field.id}-hint`).style.display = 'none';
-        field.classList.add('valid');
-        field.classList.remove('not-valid');
+
+        displayValidity(false, hint, field);
+
     };
 
 };
@@ -217,6 +246,7 @@ activityFieldSet.addEventListener('input', (e) => {
     const checkboxes = document.querySelectorAll('#activities-box [type="checkbox"]')
     userSelection = e.target;
     const selectionDateAndTime = userSelection.getAttribute('data-day-and-time');
+    const cost = document.getElementById('activities-cost');
 
     if (userSelection.checked) {
         
@@ -237,7 +267,9 @@ activityFieldSet.addEventListener('input', (e) => {
         }
     }
 
-    document.getElementById('activities-cost').textContent = `Total: $${totalPrice}`;
+    cost.textContent = `Total: $${totalPrice}`;
+
+    formControls.activities();
 
 });
 
@@ -279,7 +311,7 @@ form.addEventListener('submit', (e) => {
 
     if (creditCardDiv.hidden) {
 
-        if (validator.nameIsValid() && validator.emailIsValid()) {
+        if (validator.nameIsValid() && validator.emailIsValid() && validator.activityIsValid()) {
             return;
         } else {
             checkFields();
@@ -289,7 +321,6 @@ form.addEventListener('submit', (e) => {
 
         for (functions in validator) {
            if (!validator[functions]()) {
-                console.log('Error Validating Form.');
                 checkFields()
            }
         };

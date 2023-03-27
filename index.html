@@ -152,11 +152,10 @@
           <label for="payment">I'm going to pay with:</label>
           <select id="payment" name="user-payment">
             <option value="select method" hidden>Select Payment Method</option>
-            <option value="credit-card">Credit Card</option>
+            <option value="credit-card" selected>Credit Card</option>
             <option value="paypal">PayPal</option>
             <option value="bitcoin">Bitcoin</option>
           </select>
-          <span id="exp-hint" class="exp-hint hint">Payment method must be selected</span>
         </div>
 
         <div id="credit-card" class="credit-card">
@@ -191,7 +190,7 @@
                 <option value="2025">2025</option>    		          
               </select> 
             </div>
-            <span id="exp-hint" class="exp-hint hint">Credit cannot be expired.</span>
+            <span id="exp-hint" class="exp-hint hint">Credit card cannot be expired.</span>
           </div> 
 
           <div class="credit-card-box">
