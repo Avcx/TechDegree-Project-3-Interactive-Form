@@ -32,20 +32,31 @@ let userSchedule = [];
 
 
 /*
-    This listener runs when the page content is fully loaded.
+
+    This listener runs when the page content is fully loaded
+
 */
 
 document.addEventListener('DOMContentLoaded', (_e) => {
 
     nameField.focus(); // Sets the focus to the first text field when the page loads
-    otherRoleField.hidden = true;
+    
+
     shirtColorsDiv.hidden = true;
+    otherRoleField.hidden = true;
 
     creditCardDiv.hidden = false;
     paypalDiv.hidden = true;
     bitcoinDiv.hidden = true;
 
 });
+
+
+/*
+
+    `validator` object contains all the methods that test the form fields
+
+*/
 
 const validator = {
 
@@ -59,9 +70,12 @@ const validator = {
 
     expIsValid: (expirationMonth = +paymentExpirationMonth.value, expirationYear = +paymentExpirationYear.value) => {
 
+        // Current date is stored in variables to use for comparision against user's card input
+
         const currentDate = new Date(Date.now());
-        const currentMonth = currentDate.getMonth() + 1; //getMonth is zero based. 1 is added to allow for comparison.
+        const currentMonth = currentDate.getMonth() + 1; // `getMonth` is zero based. 1 is added to allow for accurate comparision
         const currentYear = currentDate.getFullYear();
+
 
         if (expirationYear > currentYear) {
             return true;
@@ -217,13 +231,8 @@ const formControls = {
 };
 
 /*
-    This listener runs when the `select job role` field is changed.
+    Runs this function when an input is detected in the forum
 */
-
-/*
-    This listener runs when an input in the shirt design div changes.
-*/
-
 
 form.addEventListener('input', (e) => {
 
@@ -233,6 +242,8 @@ form.addEventListener('input', (e) => {
         formFunction = 'exp';
     }
 
+    // If the value of the 'formFunction' variable also the name of a method in the 'formControls', the respective method is ran
+
     if (formFunction in formControls) {
 
         formControls[formFunction](userSelection);
@@ -240,6 +251,10 @@ form.addEventListener('input', (e) => {
     }
 
 });
+
+/*
+    Runs function when the state of the checkboxes in the activities fieldset are changed
+*/
 
 activityFieldSet.addEventListener('input', (e) => {
 
@@ -273,6 +288,10 @@ activityFieldSet.addEventListener('input', (e) => {
 
 });
 
+/*
+    Runs function when the input fields of the credit card payment section are changed
+*/
+
 paymentTypeField.addEventListener('input', (e) => {
 
     const paymentTypes = Array.from(paymentTypeField.querySelectorAll('select option'));
@@ -289,12 +308,20 @@ paymentTypeField.addEventListener('input', (e) => {
     
 })
 
+/*
+
+    This listener runs the function when the form is submitted
+
+*/
+
 form.addEventListener('submit', (e) => {
 
     function checkFields() {
-        e.preventDefault();
+        e.preventDefault(); // Stops the page from submitting the form as 1 or more fields are invalid
 
-        const fields = ['name', 'email', 'activities', 'cc', 'exp', 'cvv', 'zip'];
+        const fields = ['name', 'email', 'activities', 'cc', 'exp', 'cvv', 'zip']; // Array of required fields
+
+        // Runs 
 
         for (let i = 0; i <= 2; i++) {
 
@@ -310,24 +337,26 @@ form.addEventListener('submit', (e) => {
 
             }
         }
-
-        window.location.href = "#";
-    
+        return window.location.href = "#";
     };
+
+    // Runs validation methods before submission
 
     if (creditCardDiv.hidden) {
 
-        if (validator.nameIsValid() && validator.emailIsValid() && validator.activityIsValid()) {
-            return;
-        } else {
-            checkFields();
+        // If the credit card payment option is hidden only run the relevant validation methods
+
+        if (!validator.nameIsValid() || !validator.emailIsValid() || !validator.activityIsValid()) {
+           return checkFields();
         };
 
     } else {
 
+        // If the credit card payment option is visible then all validation methods are ran
+
         for (functions in validator) {
            if (!validator[functions]()) {
-                checkFields()
+               return checkFields()
            }
         };
     };
