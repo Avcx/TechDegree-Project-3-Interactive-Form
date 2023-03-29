@@ -128,9 +128,15 @@ input {
 	outline: none;
 }
 
-input:focus {
+input:focus, select:focus {
   background: rgba(255, 255, 255, 1);
   border-color:  rgb(9, 73, 250);
+  border-width: 2px;
+  font-size: 1.07em;
+}
+
+label input[type='checkbox']:focus {
+  box-shadow: 0 0 10px rgb(9, 73, 250);
 }
 
 input:-webkit-autofill {
@@ -232,7 +238,7 @@ button:hover {
   position: relative;
 }
 
-.not-valid {
+.not-valid, .not-valid label {
   position: relative;
   color: red;
 }

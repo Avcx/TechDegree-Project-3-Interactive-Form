@@ -62,7 +62,18 @@ const validator = {
 
     nameIsValid: (name = nameField.value) => /^[A-Z]+.?/i.test(name),
 
-    emailIsValid: (email = emailField.value) => /^[^@]{2,}@[^@]{2,}\.[a-z]{2,}$/i.test(email),
+    emailIsValid: (email = emailField.value) => {
+
+        const emailHint = document.querySelector('.email-hint');
+
+        if (!email) {
+            
+            emailHint.textContent = 'Email address is required';
+        } else {
+            emailHint.textContent = 'Email address must be formatted correctly';
+        }
+        
+       return /^[^@]{2,}@[^@]{2,}\.[a-z]{2,}$/i.test(email)},
 
     zipIsValid: (zipCode = paymentZipCodeField.value) => /^[0-9]{5}$/.test(zipCode),
 
@@ -100,15 +111,15 @@ function validate(field) {
 
         if (isValid) {
             if (fieldName) {
-                fieldName.classList.add('valid');
-                fieldName.classList.remove('not-valid');
+                fieldName['parentNode'].classList.add('valid');
+                fieldName['parentNode'].classList.remove('not-valid');
             }
             hintName.style.display = 'none';
         } else {
 
             if (fieldName) {
-                fieldName.classList.add('not-valid');
-                fieldName.classList.remove('valid');
+                fieldName['parentNode'].classList.add('not-valid');
+                fieldName['parentNode'].classList.remove('valid');
             }
             hintName.style.display = 'inherit';
         }
@@ -121,7 +132,7 @@ function validate(field) {
         const expFields = document.querySelectorAll('#exp select');
         const expHint = document.getElementById(`exp-hint`);
 
-            if (validator[`expIsValid`]()) {
+            if (validator.expIsValid()) {
 
                 for (const expField of expFields) {
                 
@@ -143,7 +154,7 @@ function validate(field) {
 
         const activitiesHint = document.getElementById(`activities-hint`);
 
-        if (validator[`activityIsValid`]()) {
+        if (validator.activityIsValid()) {
 
             displayValidity(true, activitiesHint);
 
@@ -234,7 +245,7 @@ const formControls = {
     Runs this function when an input is detected in the forum
 */
 
-form.addEventListener('input', (e) => {
+function formInput(e)  {
 
     const userSelection = e.target;
     let formFunction = e.target.id;
@@ -250,7 +261,10 @@ form.addEventListener('input', (e) => {
 
     }
 
-});
+}
+
+form.addEventListener('input', formInput);
+form.addEventListener('blur', formInput);
 
 /*
     Runs function when the state of the checkboxes in the activities fieldset are changed
@@ -321,7 +335,7 @@ form.addEventListener('submit', (e) => {
 
         const fields = ['name', 'email', 'activities', 'cc', 'exp', 'cvv', 'zip']; // Array of required fields
 
-        // Runs 
+        // Runs all the formControl methods that are relevent
 
         for (let i = 0; i <= 2; i++) {
 
