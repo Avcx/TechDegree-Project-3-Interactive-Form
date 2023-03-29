@@ -107,14 +107,13 @@ function validate(field) {
     function displayValidity(isValid, hintName, fieldName = null) {
 
         if (isValid) {
-            if (fieldName) {
+           if (fieldName) {
                 fieldName['parentNode'].classList.add('valid');
                 fieldName['parentNode'].classList.remove('not-valid');
             }
             hintName.style.display = 'none';
         } else {
-
-            if (fieldName) {
+           if (fieldName) {
                 fieldName['parentNode'].classList.add('not-valid');
                 fieldName['parentNode'].classList.remove('valid');
             }
@@ -153,12 +152,12 @@ function validate(field) {
 
         if (validator.activityIsValid()) {
 
-            displayValidity(true, activitiesHint);
+            displayValidity(true, activitiesHint, document.getElementById('activities-box'));
 
             return true;
         } else {
 
-            displayValidity(false, activitiesHint);
+            displayValidity(false, activitiesHint, document.getElementById('activities-box'));
 
             return false;
         };
