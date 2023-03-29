@@ -13,12 +13,27 @@ This form uses color and icons to display feedback allowing users that have impa
 All the required fields in the project validate the users input in real-time including the:</p>
 
 
-<h3>Live Updating Fields:</h3>
+<h3>Fields with Live Validation:</h3>
 
 <ul>
     <li>Name field</li>
     <li>Email field</li>
+    <li>Activities section</li>
 </ul>
 
+<p>Some of the real-time updating fields are not always visible on the page unless they are necessary.
+More specifically:</p>
 
+<h3>Additional Live Validatiion </h3>
 
+<ul>
+    <li>Credit Card number field</li>
+    <li>Card Expiration date field</li>
+    <li>Zip Code field</li>
+    <li>CVV field</li>
+</ul>
+
+<h2>Additional Features</h2>
+
+<p>In addition to the Live validation process. The email field possesses a special conditional message that displays
+whether the user didn't format their email address properly or they forgot to fill it out at all.<p>
