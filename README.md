@@ -35,9 +35,11 @@ More specifically:</p>
 
 <h2>Additional Features</h2>
 
-<p>In addition to the Live validation process. <strong><em>The email field</em></strong> possesses a special conditional message that displays
-whether the user didn't format their email address properly or they forgot to fill it out at all. 
+<p>In addition to the Live validation process: 
+<p><strong><em>The email field</em></strong> possesses a special conditional message that displayswhether the user didn't format their email address properly or they forgot to fill it out at all.</p>
+
 <p><strong><em>The activities section</em></strong> doesn't allow the user to register for events that have overlapping times.</p> 
+
 <p>Additionally, the page will show the user a text field when they select the "Other" job role option. This field allows them to go into further detail about their title. This field is
-only displayed when "Other" is selected.</p> <p>And lastly, the <strong><em>T-Shirt info</em></strong> section only allows the user to select colors
-based on the shirt design chosen.</p>
+only displayed when "Other" is selected.</p> 
+<p>And lastly, the <strong><em>T-Shirt info</em></strong> section only allows the user to select colors based on the shirt design chosen.</p>
