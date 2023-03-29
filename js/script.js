@@ -9,6 +9,7 @@ const nameField = document.querySelector('#name');
 const emailField = document.querySelector('#email');
 const jobRoleField = document.querySelector('#title');
 const otherRoleField = document.querySelector('#other-job-role');
+const checkboxes = document.querySelectorAll('#activities-box [type="checkbox"]');
 
 const paymentTypeField = document.querySelector('#payment');
 const paymentExpirationMonth = document.querySelector('#exp-month');
@@ -32,9 +33,7 @@ let userSchedule = [];
 
 
 /*
-
     This listener runs when the page content is fully loaded
-
 */
 
 document.addEventListener('DOMContentLoaded', (_e) => {
@@ -53,9 +52,7 @@ document.addEventListener('DOMContentLoaded', (_e) => {
 
 
 /*
-
     `validator` object contains all the methods that test the form fields
-
 */
 
 const validator = {
@@ -272,7 +269,6 @@ form.addEventListener('blur', formInput);
 
 activityFieldSet.addEventListener('input', (e) => {
 
-    const checkboxes = document.querySelectorAll('#activities-box [type="checkbox"]')
     userSelection = e.target;
     const selectionDateAndTime = userSelection.getAttribute('data-day-and-time');
     const cost = document.getElementById('activities-cost');
@@ -302,6 +298,20 @@ activityFieldSet.addEventListener('input', (e) => {
 
 });
 
+
+
+for (const checkbox of checkboxes) {
+
+    checkbox['addEventListener']('focus', (e) => {
+        e.target.parentNode.classList.add('focus');
+    }) 
+
+    checkbox['addEventListener']('blur', (e) => {
+        e.target.parentNode.classList.remove('focus');
+    })
+}
+
+
 /*
     Runs function when the input fields of the credit card payment section are changed
 */
@@ -323,9 +333,7 @@ paymentTypeField.addEventListener('input', (e) => {
 })
 
 /*
-
     This listener runs the function when the form is submitted
-
 */
 
 form.addEventListener('submit', (e) => {

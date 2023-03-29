@@ -128,15 +128,13 @@ input {
 	outline: none;
 }
 
-input:focus, select:focus {
+input:focus {
   background: rgba(255, 255, 255, 1);
   border-color:  rgb(9, 73, 250);
-  border-width: 2px;
-  font-size: 1.07em;
 }
 
 label input[type='checkbox']:focus {
-  box-shadow: 0 0 10px rgb(9, 73, 250);
+  box-shadow: 0 0 5px rgb(9, 73, 250);
 }
 
 input:-webkit-autofill {
