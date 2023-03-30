@@ -24,7 +24,7 @@ All the required fields in the project validate the users input in real-time inc
 <p>Some of the real-time updating fields are not always visible on the page unless they are necessary.
 More specifically:</p>
 
-<h3>Additional Live Validatiion </h3>
+<h3>Additional Live Validation: </h3>
 
 <ul>
     <li>Credit Card number field</li>
