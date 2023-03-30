@@ -214,7 +214,7 @@ const formControls = {
 
         shirtColorsDiv.hidden = false;
 
-        let colorOptions = document.querySelectorAll('#color option[disabled]');
+        let colorOptions = document.querySelectorAll('#color option');
 
 
         for (color of colorOptions) {
@@ -226,9 +226,7 @@ const formControls = {
         colorOptions[0].setAttribute('selected', true)
 
         for (color of colorOptions) {
-            if (color.getAttribute('data-theme') === userSelection.value) {
                 color.disabled = false;
-            }
         }   
 
     },
