@@ -218,17 +218,18 @@ const formControls = {
 
 
         for (color of colorOptions) {
-            if (color.getAttribute('data-theme') === userSelection.value)
             color.disabled = true;
             color.removeAttribute('selected');
-        }
+        }   
 
         colorOptions = document.querySelectorAll(`#color > [data-theme="${userSelection.value}"]`);
         colorOptions[0].setAttribute('selected', true)
 
         for (color of colorOptions) {
-            color.disabled = false;
-        }
+            if (color.getAttribute('data-theme') === userSelection.value) {
+                color.disabled = false;
+            }
+        }   
 
     },
 
