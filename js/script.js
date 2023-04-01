@@ -80,7 +80,7 @@ const validator = {
 
         // Current date is stored in variables to use for comparision against user's card input
 
-        const currentDate = new Date(Date.now());
+        const currentDate = new Date();
         const currentMonth = currentDate.getMonth() + 1; // `getMonth` is zero based. 1 is added to allow for accurate comparision
         const currentYear = currentDate.getFullYear();
 
@@ -269,16 +269,17 @@ activityFieldSet.addEventListener('input', (e) => {
 
     userSelection = e.target;
     const selectionDateAndTime = userSelection.getAttribute('data-day-and-time');
+    const selectionCost = +userSelection.getAttribute('data-cost');
     const cost = document.getElementById('activities-cost');
 
     if (userSelection.checked) {
         
-        totalPrice += +userSelection.getAttribute('data-cost');
+        totalPrice += selectionCost;
         userSchedule.push(selectionDateAndTime);
 
     } else {
 
-        totalPrice -= +userSelection.getAttribute('data-cost');
+        totalPrice -= selectionCost;
         userSchedule[userSchedule.indexOf(selectionDateAndTime)] = undefined;
     }
 
@@ -348,6 +349,8 @@ form.addEventListener('submit', (e) => {
             formControls[fields[i]]();
 
         }
+
+        // Runs all the formContol methods that corrolate with the visible fields
 
         if (!creditCardDiv.hidden) {
 
