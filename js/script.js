@@ -29,7 +29,7 @@ const paypalDiv = document.querySelector('#paypal');
 const bitcoinDiv = document.querySelector('#bitcoin');
 
 let totalPrice = 0;
-let userSchedule = [];
+const userSchedule = [];
 
 
 /*
@@ -63,8 +63,7 @@ const validator = {
 
         const emailHint = document.querySelector('.email-hint');
 
-        if (!email) {
-            
+        if (!email) { 
             emailHint.textContent = 'Email address is required';
         } else {
             emailHint.textContent = 'Email address must be formatted correctly';
@@ -217,15 +216,15 @@ const formControls = {
         let colorOptions = document.querySelectorAll('#color option');
 
 
-        for (color of colorOptions) {
+        for (const color of colorOptions) {
             color.disabled = true;
             color.removeAttribute('selected');
         }   
 
         colorOptions = document.querySelectorAll(`#color > [data-theme="${userSelection.value}"]`);
-        colorOptions[0].setAttribute('selected', true)
+        colorOptions[0].setAttribute('selected', true);
 
-        for (color of colorOptions) {
+        for (const color of colorOptions) {
                 color.disabled = false;
         }   
 
@@ -301,13 +300,9 @@ activityFieldSet.addEventListener('input', (e) => {
 
 for (const checkbox of checkboxes) {
 
-    checkbox['addEventListener']('focus', (e) => {
-        e.target.parentNode.classList.add('focus');
-    }) 
+    checkbox['addEventListener']('focus', e => e.target.parentNode.classList.add('focus'));
 
-    checkbox['addEventListener']('blur', (e) => {
-        e.target.parentNode.classList.remove('focus');
-    })
+    checkbox['addEventListener']('blur', e => e.target.parentNode.classList.remove('focus'));
 }
 
 
@@ -377,7 +372,7 @@ form.addEventListener('submit', (e) => {
 
         // If the credit card payment option is visible then all validation methods are ran
 
-        for (functions in validator) {
+        for (const functions in validator) {
            if (!validator[functions]()) {
                return checkFields()
            }
