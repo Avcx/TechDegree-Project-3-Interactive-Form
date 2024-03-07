@@ -2,9 +2,9 @@
 
 ## Project Description
 
-This project is an interactive form that uses different methods of displaying various information to the end user.
-It has been designed to allow for an excellent user experience whether the user is unable to use a operate a computer in
-a traditional sense. Or the user is trying to fill out their information and submit quickly. A good form should take into account
+This project is an interactive form that uses various different methods of displaying information to the end user.
+It is designed for an excellent user experience. Whether the user is unable to use a operate a computer in
+a traditional sense, or trying to fill it to submit quickly. A good form should take into account
 the overall usability of the page by displaying feedback dynamically. Instantly giving the user an idea of what they did right or
 what they did wrong.
 
@@ -31,10 +31,11 @@ More specifically:
 ## Additional Features
 
 In addition to the Live validation process: 
-<strong><em>The email field</em></strong> possesses a special conditional message that displayswhether the user didn't format their email address properly or they forgot to fill it out at all.
+***The email field*** possesses a special conditional message that displayswhether the user didn't format their email address properly or they forgot to fill it out at all.
 
-<p><strong><em>The activities section</em></strong> doesn't allow the user to register for events that have overlapping times.</p> 
+***The activities section*** doesn't allow the user to register for events that have overlapping times. 
 
-<p>Additionally, the page will show the user a text field when they select the "Other" job role option. This field allows them to go into further detail about their title. This field is
-only displayed when "Other" is selected.</p> 
-<p>And lastly, the <strong><em>T-Shirt info</em></strong> section only allows the user to select colors based on the shirt design chosen.</p>
+Additionally, the page will show the user a text field when they select the "*Other*" job role option. This field allows them to go into further detail about their title. This field is
+only displayed when "*Other*" is selected.
+
+And lastly, the ***T-Shirt info*** section only allows the user to select colors based on the shirt design chosen.
