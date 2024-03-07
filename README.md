@@ -14,19 +14,19 @@ All the required fields in the project validate the users input in real-time inc
 
 ### Fields with Live Validation:
 
-    - Name field
-    - Email field
-    - Activities section
+    * Name field
+    * Email field
+    * Activities section
 
 Some of the real-time updating fields are not always visible on the page unless they are necessary.
 More specifically:
 
 ### Additional Live Validation:
 
-    - Credit Card number field
-    - Card Expiration date field
-    - Zip Code field
-    - CVV field
+    * Credit Card number field
+    * Card Expiration date field
+    * Zip Code field
+    * CVV field
 
 ## Additional Features
 
