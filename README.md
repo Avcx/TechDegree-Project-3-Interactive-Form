@@ -1,42 +1,37 @@
-# TechDegree-Project-3-Interactive-Form
- <h1>An interactive form</h1>
+# Fully Accessible and Interactive form
 
- <h2>Project Description</h2>
+## Project Description
 
-<p>This project is an interactive form that uses different methods of displaying various information to the end user.
+This project is an interactive form that uses different methods of displaying various information to the end user.
 It has been designed to allow for an excellent user experience whether the user is unable to use a operate a computer in
 a traditional sense. Or the user is trying to fill out their information and submit quickly. A good form should take into account
 the overall usability of the page by displaying feedback dynamically. Instantly giving the user an idea of what they did right or
 what they did wrong.
 
 This form uses color and icons to display feedback allowing users that have impaired vision or are colorblind. 
-All the required fields in the project validate the users input in real-time including the:</p>
+All the required fields in the project validate the users input in real-time including the:
 
 
-<h3>Fields with Live Validation:</h3>
+### Fields with Live Validation:
 
-<ul>
-    <li>Name field</li>
-    <li>Email field</li>
-    <li>Activities section</li>
-</ul>
+    - Name field
+    - Email field
+    - Activities section
 
-<p>Some of the real-time updating fields are not always visible on the page unless they are necessary.
-More specifically:</p>
+Some of the real-time updating fields are not always visible on the page unless they are necessary.
+More specifically:
 
-<h3>Additional Live Validation: </h3>
+### Additional Live Validation:
 
-<ul>
-    <li>Credit Card number field</li>
-    <li>Card Expiration date field</li>
-    <li>Zip Code field</li>
-    <li>CVV field</li>
-</ul>
+    - Credit Card number field
+    - Card Expiration date field
+    - Zip Code field
+    - CVV field
 
-<h2>Additional Features</h2>
+## Additional Features
 
-<p>In addition to the Live validation process: 
-<p><strong><em>The email field</em></strong> possesses a special conditional message that displayswhether the user didn't format their email address properly or they forgot to fill it out at all.</p>
+In addition to the Live validation process: 
+<strong><em>The email field</em></strong> possesses a special conditional message that displayswhether the user didn't format their email address properly or they forgot to fill it out at all.
 
 <p><strong><em>The activities section</em></strong> doesn't allow the user to register for events that have overlapping times.</p> 
 
